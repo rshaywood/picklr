@@ -21,6 +21,10 @@ class User:
         self.state = data['state']
         self.age = data['age']
         self.gender = data['gender']
+        self.favorites = []
+
+
+# CREATE
 
     @classmethod
     def create_user(cls, data):
