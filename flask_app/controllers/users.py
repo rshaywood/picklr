@@ -24,18 +24,14 @@ def create_user():
 @app.route('/')
 def landing_page():
     return render_template('landing_page.html')
+
+# LOGiIN/OUT - ROUTES
+
+@app.route('/user/login', methods=['POST'])
 def login():
     if User.login(request.form):
         return redirect('/dashboard')
     return redirect('/')
-
-# LOGiIN/OUT - ROUTES
-
-# @app.route('/', methods=['POST'])
-# def login():
-#     if User.login(request.form):
-#         return redirect('/dashboard')
-#     return redirect('/')
 
 @app.route('/user/logout')
 def logout():

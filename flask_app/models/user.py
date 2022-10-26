@@ -82,6 +82,9 @@ class User:
         if len(user['last_name']) < 2:
             flash("Last name must be at least 2 characters!","register")
             is_valid= False
+        if len(user['username']) < 2:
+            flash("Username must be at least 2 characters!","register")
+            is_valid= False            
         if not EMAIL_REGEX.match(user['email']):
             flash("Invalid Email!","register")
             is_valid=False
@@ -111,6 +114,7 @@ class User:
         user_data = {}
         user_data['first_name'] = data['first_name']
         user_data['last_name'] = data['last_name']
+        user_data['username'] = data['username']
         user_data['password'] = bcrypt.generate_password_hash(data['password'])
         user_data['email'] = data['email'].lower()
         user_data['dupr_rating'] = data['dupr_rating']
