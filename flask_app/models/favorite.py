@@ -17,6 +17,17 @@ class Favorite:
         self.user_id = data['user_id']
         self.user_favorites = []
 
+# CREATE
+
+    @classmethod
+    def add_favorite(cls, data):
+        query = """
+        INSERT INTO locations (name, street_address, city, state, zip_code)
+        VALUES (%(name)s, %(street_address)s, %(city)s, %(state)s, %(zip_code)s)
+        ;"""
+        location_id = connectToMySQL(cls.db).query_db(query, data)
+        return location_id
+
     @classmethod
     def get_all_favorites(cls):
         query = """SELECT * FROM locations;"""

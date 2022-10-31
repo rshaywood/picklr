@@ -25,10 +25,15 @@
             <td>{{favorite.city}}</td>
             <td>{{favorite.state}}</td>
             <td>{{favorite.zip_code}}</td>
+            <td>
+                <a href="/favorite/delete/{{favorite.id}}"></a>
+            </td>
         </tr>
         {% endfor %}
     </table>
-    <a href="/location/add"><button class="btn btn-primary">Add a Favorite</button></a>
+    <a href="/location/add_form", method="post">
+        <button class="btn btn-primary">Add a Favorite</button>
+    </a>
     <a href="/user/logout"><button class="btn btn-primary">Logout</button></a>
 
 </body>
