@@ -4,9 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">    
     <title>PICKLR</title>
 </head>
 <body>
-    <h1>username</h1>
+    <h1>{{this_user.username}}</h1>
+    <table class="favorites table">
+        <thead>
+            <th scope="col" name="name">Facility</th>
+            <th scope="col" name="stree_address">Street Address</th>
+            <th scope="col" name="city">City</th>
+            <th scope="col" name="state">State</th>
+        </thead>
+        {% for favorite in all_favorites %}
+        <tr>
+            <td>{{favorite.name}}</td>
+            <td>{{favorite.street_address}}</td>
+            <td>{{favorite.city}}</td>
+            <td>{{favorite.state}}</td>
+            <td>{{favorite.zip_code}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/location/add"><button class="btn btn-primary">Add a Favorite</button></a>
+    <a href="/user/logout"><button class="btn btn-primary">Logout</button></a>
+
 </body>
 </html>

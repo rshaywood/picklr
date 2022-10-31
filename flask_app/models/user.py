@@ -68,6 +68,22 @@ class User:
             result = cls(result[0])
         return result
 
+    @classmethod
+    def get_user_with_favorites(cls, data):
+        query = """
+        SELECT * FROM users
+        LEFT JOIN favorites ON favorites.user_id=users.id
+        LEFT JOIN locations ON favorites.location_id=locations.id
+        WHERE users.id = %(id)s;"""
+        results = connectToMySQL(cls.db).query_db(query, data)
+        user = cls(results[0])
+        for favorite_from_db in results:
+            favorite_data = {
+                "name": favorite_from_db['name'],
+            }
+            user.favorites.append(favorite.Favorite(favorite_data))
+        return user
+
 # VALIDATE - SQL
 
     @staticmethod
