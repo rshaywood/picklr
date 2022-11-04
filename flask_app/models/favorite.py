@@ -1,6 +1,6 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app import app
-from flask import render_template, redirect, request, session
+from flask import request, session, flash
 from flask_app.models import user, favorite
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
@@ -61,4 +61,26 @@ class Favorite:
             }
             favorite.user_favorites.append(user.User(favorite_data))
         return favorite
+
+# VALIDATE - SQL
+
+    @staticmethod
+    def validate_show_info(show):
+        is_valid = True
+        query = "SELECT * FROM shows WHERE id = %(id)s;"
+        results = connectToMySQL(Show.db).query_db(query, show)
+        print(results)
+        if not show['title']:
+            flash("Title of the show must be at least 3 characters.","create_show")
+            is_valid= False
+        if len(show['description']) < 3:
+            flash("Description of show must be at least 3 characters.","create_show")
+            is_valid= False
+        if len(show['release_date']) < 1:
+            flash("Please include a release date!","create_show")
+            is_valid= False
+        if len(show['network']) < 1:
+            flash("Please include the network the show aired on!","create_show")
+            is_valid= False         
+        return is_valid
 
