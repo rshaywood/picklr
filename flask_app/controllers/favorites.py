@@ -22,14 +22,14 @@ def view_add_form():
 def add_location():
     if 'user_id' not in session:
         return redirect('/')
-    if not favorite.Favorite.validate_show_info(request.form):
-        return redirect('/location/add_form')
+    # if not favorite.Favorite.validate_location_info(request.form):
+    #     return redirect('/location/add_form')
     data = {
         "name": request.form['name'],
         "street_address": request.form['street_address'],
         "city": request.form['city'],
         "state": request.form['state'],
-        "zip_code": request.form['zip_code']
+        # "zip_code": request.form['zip_code']
     }
     favorite.Favorite.add_favorite(data)
     return redirect('/dashboard')

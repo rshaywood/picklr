@@ -26,6 +26,7 @@ class Favorite:
         VALUES (%(name)s, %(street_address)s, %(city)s, %(state)s, %(zip_code)s)
         ;"""
         location_id = connectToMySQL(cls.db).query_db(query, data)
+        print('*****************', location_id) 
         return location_id
 
     @classmethod
@@ -38,7 +39,7 @@ class Favorite:
         return list_of_favorites_data
 
     @classmethod
-    def get_users_favorites(cls):
+    def get_users_favorites(cls, data):
         query = """
         SELECT * 
         FROM locations
@@ -54,7 +55,6 @@ class Favorite:
             favorite_data = {
                 "name": favorite_from_db['name'],
                 "street_address": favorite_from_db['street_address'],
-                "street_address": favorite_from_db['street_address'],
                 "city": favorite_from_db['city'],
                 "state": favorite_from_db['state'],
                 "zip_code": favorite_from_db['zip_code'],
@@ -64,23 +64,26 @@ class Favorite:
 
 # VALIDATE - SQL
 
-    @staticmethod
-    def validate_show_info(show):
-        is_valid = True
-        query = "SELECT * FROM shows WHERE id = %(id)s;"
-        results = connectToMySQL(Show.db).query_db(query, show)
-        print(results)
-        if not show['title']:
-            flash("Title of the show must be at least 3 characters.","create_show")
-            is_valid= False
-        if len(show['description']) < 3:
-            flash("Description of show must be at least 3 characters.","create_show")
-            is_valid= False
-        if len(show['release_date']) < 1:
-            flash("Please include a release date!","create_show")
-            is_valid= False
-        if len(show['network']) < 1:
-            flash("Please include the network the show aired on!","create_show")
-            is_valid= False         
-        return is_valid
+    # @staticmethod
+    # def validate_location_info(favorite):
+    #     is_valid = True
+    #     query = "SELECT * FROM locations WHERE id = %(id)s;"
+    #     results = connectToMySQL(Favorite.db).query_db(query, favorite)
+    #     print(results)
+    #     if not favorite['name']:
+    #         flash("Facility name must be at least 3 characters.","create_favorite")
+    #         is_valid= False
+    #     if len(favorite['street_address']) < 3:
+    #         flash("Facility address must be at least 3 characters.","create_favorite")
+    #         is_valid= False
+    #     if len(favorite['city']) < 1:
+    #         flash("Please include the city.","create_favorite")
+    #         is_valid= False
+    #     if len(favorite['state']) < 1:
+    #         flash("Please enter a state.","create_favorite")
+    #         is_valid= False
+    #     if len(favorite['zip_code']) < 5:
+    #         flash("Please enter a valid zip code.","create_favorite")
+    #         is_valid= False
+    #     return is_valid
 
